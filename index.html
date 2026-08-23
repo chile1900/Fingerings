@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bb Major Scale | Saxophone Fingering Chart</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --bg: #f8f9fa;
+        }
+        
+        body { 
+            font-family: system-ui, -apple-system, sans-serif; 
+            margin: 0; 
+            background-color: var(--bg); 
+            color: #333; 
+        }
+
+        .hero { 
+            background: var(--primary); 
+            color: white; 
+            padding: 3rem 1rem; 
+            text-align: center; 
+        }
+
+        .hero h1 { margin: 0; font-size: 2.5rem; }
+        .hero p { opacity: 0.8; margin-top: 0.5rem; font-size: 1.1rem; }
+
+        .scale-container { 
+            max-width: 800px; 
+            margin: 3rem auto; 
+            padding: 0 1rem; 
+            text-align: center; 
+        }
+
+        .notes-grid { 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+            gap: 1rem; 
+            margin-top: 2rem; 
+        }
+
+        .note-btn { 
+            background: white; 
+            border: 2px solid #ddd; 
+            border-radius: 8px; 
+            padding: 1rem 2rem; 
+            font-size: 1.25rem; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: all 0.2s ease; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05); 
+        }
+
+        .note-btn:hover { 
+            border-color: var(--accent); 
+            transform: translateY(-2px); 
+        }
+
+        .note-btn.active { 
+            background: var(--accent); 
+            color: white; 
+            border-color: var(--accent); 
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+        }
+
+        .fingering-display { 
+            margin-top: 3rem; 
+            padding: 3rem 2rem; 
+            background: white; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+            min-height: 250px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            flex-direction: column; 
+        }
+
+        .fingering-img { 
+            max-width: 100%; 
+            height: auto; 
+            display: none; 
+            max-height: 300px;
+        }
+
+        .placeholder-text { 
+            color: #888; 
+            font-style: italic; 
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <h1>Bb Major Scale</h1>
+        <p>Interactive Saxophone Fingering Chart</p>
+    </header>
+
+    <main class="scale-container">
+        <h2>Select a note to view its fingering</h2>
+        
+        <div class="notes-grid" id="note-buttons">
+            <!-- Bb Major Scale Notes -->
+            <button class="note-btn" data-note="Bb">Bb</button>
+            <button class="note-btn" data-note="C">C</button>
+            <button class="note-btn" data-note="D">D</button>
+            <button class="note-btn" data-note="Eb">Eb</button>
+            <button class="note-btn" data-note="F">F</button>
+            <button class="note-btn" data-note="G">G</button>
+            <button class="note-btn" data-note="A">A</button>
+            <button class="note-btn" data-note="Bb-high">Bb (High)</button>
+        </div>
+
+        <div class="fingering-display">
+            <p class="placeholder-text" id="placeholder">Click a note above to display the fingering...</p>
+            
+            <!-- Target image element for the fingerings -->
+            <img src="" alt="Fingering Chart" class="fingering-img" id="fingering-image">
+            <h3 id="note-title" style="display: none; margin-top: 1.5rem; color: #2c3e50;"></h3>
+        </div>
+    </main>
+
+    <script>
+        const buttons = document.querySelectorAll('.note-btn');
+        const fingeringImage = document.getElementById('fingering-image');
+        const placeholder = document.getElementById('placeholder');
+        const noteTitle = document.getElementById('note-title');
+
+        // Map the notes to your own local image files
+        const noteAssets = {
+            'Bb': 'images/bb-low.jpg',
+            'C': 'images/c.jpg',
+            'D': 'images/d.jpg',
+            'Eb': 'images/eb.jpg',
+            'F': 'images/f.jpg',
+            'G': 'images/g.jpg',
+            'A': 'images/a.jpg',
+            'Bb-high': 'images/bb-high.jpg'
+        };
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                // 1. Remove active state from all buttons
+                buttons.forEach(b => b.classList.remove('active'));
+                
+                // 2. Add active state to the clicked button
+                const clickedBtn = e.target;
+                clickedBtn.classList.add('active');
+
+                // 3. Update the display UI
+                const note = clickedBtn.dataset.note;
+                
+                placeholder.style.display = 'none';
+                noteTitle.style.display = 'block';
+                noteTitle.textContent = `Fingering for: ${clickedBtn.textContent}`;
+                
+                /* 
+                  Uncomment the two lines below once you have saved the 
+                  fingering chart images into an "images" folder on your server.
+                */
+                
+                // fingeringImage.src = noteAssets[note];
+                // fingeringImage.style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>
